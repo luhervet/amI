@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Entretien Choulex FCC</title>
+<style>
+:root {
+  --bg: #f4f6f9; --paper: #ffffff; --ink: #1c2430; --muted: #5b6676; --line: #dde3eb;
+  --navy: #17345f; --navy-ink: #17345f; --navy-soft: #e8eef7;
+  --red: #b3261e; --red-soft: #fdecea; --red-line: #f1c4c0;
+  --amber: #8f5d00; --amber-soft: #fff6dd; --amber-line: #e5b84a;
+  --hl: #fff1b8; --hl-ink: inherit;
+  --A: #8a5a2b; --A-soft: #f6eee5; --A-ink: #7a4d22;
+  --B: #1f6fb2; --B-soft: #e7f1fa; --B-ink: #1a5f99;
+  --C: #c07a00; --C-soft: #fdf3df; --C-ink: #7f5100;
+  --D: #2e7d4f; --D-soft: #e7f4ec; --D-ink: #276a43;
+  --geo: #ece6f7; --geo-ink: #5b3d99;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f141b; --paper: #171e28; --ink: #e6ebf2; --muted: #9aa6b6; --line: #2a3442;
+    --navy-ink: #9cc0f0; --navy-soft: #1d2a3d;
+    --red: #ff8a80; --red-soft: #3a1c1c; --red-line: #6b2b27;
+    --amber: #f2c25a; --amber-soft: #2f2715; --amber-line: #6b5522;
+    --hl: #5a4a10; --hl-ink: #fff3c4;
+    --A-soft: #2b2219; --A-ink: #e0b07e; --B-soft: #16263a; --B-ink: #8cc3f0;
+    --C-soft: #2d2412; --C-ink: #f0c060; --D-soft: #142a1e; --D-ink: #84d3a3;
+    --geo: #2a2240; --geo-ink: #c3b0f0;
+  }
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 16px; line-height: 1.5; }
+b, strong { font-weight: 650; }
+.wrap { max-width: 860px; margin: 0 auto; padding: 16px 16px 40px; }
+.part { background: var(--paper); border-radius: 12px; padding: 4px 16px 16px; margin-top: 14px; border: 1px solid var(--line); }
+.part:first-of-type { margin-top: 0; }
+
+/* En-tête */
+.hero { background: var(--navy); color: #fff; border-radius: 12px; padding: 14px 16px; margin: 12px 0 10px; }
+.wrap > .hero { margin-top: 0; }
+.hero .kicker { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; opacity: .8; font-weight: 600; }
+.hero h1 { margin: 4px 0 6px; font-size: clamp(20px, 5.4vw, 28px); line-height: 1.2; font-weight: 800; }
+.hero .sub { font-size: 14px; opacity: .95; }
+.hero .sub span { display: inline-block; background: rgba(255,255,255,.18); border-radius: 12px; padding: 1px 9px; margin: 0 4px 4px 0; }
+
+/* Navigation */
+.nav { position: sticky; top: 0; z-index: 10; display: flex; gap: 6px; overflow-x: auto; padding: 10px 16px; margin: 0 -16px 4px;
+  background: color-mix(in srgb, var(--bg) 92%, transparent); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  scrollbar-width: none; border-bottom: 1px solid var(--line); }
+.nav::-webkit-scrollbar { display: none; }
+.nav a { flex: 0 0 auto; display: inline-flex; align-items: center; gap: 6px; text-decoration: none; color: var(--navy-ink);
+  background: var(--paper); border: 1px solid var(--line); border-radius: 999px; padding: 7px 12px; font-size: 14px; font-weight: 600; min-height: 36px; }
+.nav a b { display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; border-radius: 50%; background: var(--navy); color: #fff; font-size: 12px; }
+.nav a.cA b { background: var(--A); } .nav a.cB b { background: var(--B); } .nav a.cC b { background: var(--C); } .nav a.cD b { background: var(--D); }
+.nav a.cW { color: var(--red); border-color: var(--red-line); } .nav a.cW b { background: var(--red); }
+[id] { scroll-margin-top: 64px; }
+
+/* Titres */
+h2 { display: flex; align-items: center; gap: 10px; margin: 20px 0 10px; font-size: 18px; line-height: 1.25; color: var(--navy-ink); font-weight: 800; border-bottom: 2px solid var(--navy); padding-bottom: 6px; }
+h2 .num { flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 50%; background: var(--navy); color: #fff; font-size: 15px; }
+
+/* Lignes libellé | texte */
+.rows { display: grid; grid-template-columns: 150px 1fr; border-top: 1px solid var(--line); }
+.rows > .k, .rows > .v { padding: 8px 10px; border-bottom: 1px solid var(--line); }
+.rows > .k { font-weight: 700; color: var(--navy-ink); background: var(--navy-soft); }
+
+/* Calendrier */
+.timeline { border-left: 3px solid var(--navy); margin: 6px 0 0 8px; }
+.step { position: relative; display: grid; grid-template-columns: 160px 1fr; gap: 10px; padding: 6px 0 12px 20px; }
+.step::before { content: ""; position: absolute; left: -9.5px; top: 9px; width: 16px; height: 16px; border-radius: 50%; background: var(--paper); border: 3px solid var(--navy); }
+.step.key::before { background: var(--navy); }
+.step .when { font-weight: 800; color: var(--navy-ink); }
+.step .tag { display: inline-block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; border-radius: 4px; padding: 1px 6px; margin-top: 3px; }
+.t-geo { background: var(--geo); color: var(--geo-ink); }
+.t-env { background: var(--D-soft); color: var(--D-ink); }
+.t-mat { background: var(--A-soft); color: var(--A-ink); }
+.t-dec { background: var(--navy-soft); color: var(--navy-ink); }
+
+/* Encadrés */
+.box { border-radius: 10px; padding: 12px 14px; margin-top: 14px; }
+.box .title { font-weight: 800; text-transform: uppercase; letter-spacing: .05em; font-size: 14px; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+.box.vigil { background: var(--amber-soft); border: 1.5px solid var(--amber-line); }
+.box.vigil .title { color: var(--amber); }
+.box.warn { background: var(--red-soft); border: 2px solid var(--red); }
+.box.warn .title { color: var(--red); font-size: 16px; }
+.icon { display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; border-radius: 50%; color: #fff; font-size: 14px; font-weight: 800; }
+.vigil .icon { background: #a26a00; } .warn .icon { background: #b3261e; }
+.quad { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.quad div { background: var(--paper); border-radius: 8px; padding: 8px 10px; border: 1px solid var(--amber-line); font-size: 15px; }
+.quad div b { display: block; color: var(--amber); }
+.box .foot { margin-top: 8px; font-weight: 700; }
+.warn ul { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.warn li { background: var(--paper); border-radius: 8px; padding: 8px 10px 8px 30px; position: relative; font-weight: 600; border: 1px solid var(--red-line); }
+.warn li::before { content: "✕"; position: absolute; left: 11px; top: 8px; color: var(--red); font-weight: 800; }
+
+/* Distinguer */
+.distinguish { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; background: var(--navy-soft); border-radius: 10px; padding: 10px 12px; margin: 12px 0 4px; }
+.distinguish .lbl { font-weight: 800; color: var(--navy-ink); width: 100%; }
+.chip { background: var(--paper); border: 1.5px solid var(--navy); color: var(--navy-ink); border-radius: 999px; padding: 3px 11px; font-weight: 700; font-size: 14px; }
+.distinguish .sep { display: none; }
+
+/* Site PB */
+.pb { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.card { border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; }
+.card .k { font-weight: 800; color: var(--navy-ink); text-transform: uppercase; font-size: 13px; letter-spacing: .05em; margin-bottom: 2px; }
+.card.alert { border: 1.5px solid var(--red); background: var(--red-soft); }
+.card.alert .k { color: var(--red); }
+
+/* Thèmes */
+.theme { margin-top: 14px; border-radius: 10px; overflow: hidden; border: 1px solid var(--line); }
+.theme .th { display: flex; align-items: center; gap: 10px; color: #fff; font-weight: 800; font-size: 16px; padding: 9px 12px; }
+.theme .th .L { flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border-radius: 6px; background: rgba(255,255,255,.25); }
+.theme .rows { border-top: none; }
+.theme .rows > .v:last-child, .theme .rows > .k:nth-last-child(2) { border-bottom: none; }
+.theme.A .th { background: var(--A); } .theme.A .rows > .k { background: var(--A-soft); color: var(--A-ink); }
+.theme.B .th { background: var(--B); } .theme.B .rows > .k { background: var(--B-soft); color: var(--B-ink); }
+.theme.C .th { background: var(--C); } .theme.C .rows > .k { background: var(--C-soft); color: var(--C-ink); }
+.theme.D .th { background: var(--D); } .theme.D .rows > .k { background: var(--D-soft); color: var(--D-ink); }
+.rows > .k.nuance { color: var(--red) !important; }
+.v.nuance { background: var(--red-soft); }
+
+/* À confirmer : vraies cases à cocher */
+.confirm label.k { display: flex; align-items: flex-start; gap: 8px; cursor: pointer; }
+.confirm input { width: 20px; height: 20px; margin: 1px 0 0; accent-color: var(--navy); flex: 0 0 auto; }
+
+.hl { background: var(--hl); color: var(--hl-ink); padding: 0 3px; border-radius: 3px; font-weight: 650; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+.sources { margin-top: 14px; font-size: 14px; color: var(--muted); border-top: 1px solid var(--line); padding-top: 10px; }
+.sources b { color: var(--ink); }
+.foot-doc { text-align: center; color: var(--muted); font-size: 13px; margin-top: 20px; }
+
+/* ---------- Mobile ---------- */
+@media (max-width: 640px) {
+  .part { padding: 2px 12px 14px; border-radius: 10px; }
+  .rows { grid-template-columns: 1fr; }
+  .rows > .k { border-bottom: none; padding: 8px 10px 2px; background: transparent !important; font-size: 13px; text-transform: uppercase; letter-spacing: .04em; }
+  .rows > .v { padding: 0 10px 10px; }
+  .theme .rows > .k:nth-last-child(2) { border-bottom: none; }
+  .step { grid-template-columns: 1fr; gap: 2px; padding-left: 18px; }
+  .step .when { display: inline; margin-right: 6px; }
+  .quad { grid-template-columns: 1fr 1fr; }
+  .pb { grid-template-columns: 1fr; }
+  .warn ul { grid-template-columns: 1fr; }
+  h2 { font-size: 17px; }
+}
+@media (max-width: 360px) { .quad { grid-template-columns: 1fr; } }
+
+@media print {
+  body { background: #fff; font-size: 11pt; }
+  .nav { display: none; }
+  .part { border: none; padding: 0; }
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+@media (min-width: 700px) { .nav { flex-wrap: wrap; overflow-x: visible; } }
+
+</style>
+</head>
+<body>
+<main class="wrap">
+<div class="hero">
+    <div class="kicker">Partie 1 · Écoute et cadrage</div>
+    <h1>CHOULEX | ENTRETIEN AVEC LA MAIRE</h1>
+    <div class="sub"><span>26 novembre 2026</span><span>Fiche de conduite</span> Écoute, réponses générales, déclinaison locale PB / Choulex</div>
+  </div>
+
+  
+
+<nav class="nav" aria-label="Accès rapide">
+  <a href="#s1"><b>1</b> Écoute</a>
+  <a href="#s2"><b>2</b> Projet</a>
+  <a href="#s3"><b>3</b> Calendrier</a>
+  <a href="#s4"><b>4</b> Site PB</a>
+  <a href="#tA" class="cA"><b>A</b> Matériaux</a>
+  <a href="#tB" class="cB"><b>B</b> Eau</a>
+  <a href="#tC" class="cC"><b>C</b> Énergie</a>
+  <a href="#tD" class="cD"><b>D</b> Biodiversité</a>
+  <a href="#s6"><b>6</b> À confirmer</a>
+  <a href="#warn" class="cW"><b>!</b> Ne pas surpromettre</a>
+</nav>
+
+<section class="part">
+  <h2 id="s1"><span class="num">1</span> POSTURE D’ÉCOUTE</h2>
+  <div class="rows">
+    <div class="k">Écoute d’abord</div>
+    <div class="v">évolution depuis le 31 août ; retours des habitants ; sujets devenus prioritaires ; attentes vis-à-vis du CERN.</div>
+    <div class="k">Hiérarchiser</div>
+    <div class="v">foncier, paysage, circulation, eau / biodiversité, déblais, énergie, compensations : <b>quelles 2 ou 3 priorités ?</b></div>
+    <div class="k">Dialogue</div>
+    <div class="v">élu référent et services ; fréquence / format du suivi ; information des riverains ; modalités d’association de la commune aux études.</div>
+    <div class="k">SSi2 / parcelles</div>
+    <div class="v">retour sur les <b>31 parcelles d’investigation</b> annoncées sur Choulex ; coordination avec les exploitants locataires ; difficultés ou remarques des habitants.</div>
+  </div>
+
+  <h2 id="s2"><span class="num">2</span> REMETTRE LE PROJET EN PERSPECTIVE</h2>
+  <div class="rows">
+    <div class="k">Objet</div>
+    <div class="v">tunnel d’environ <b>90,7 km</b> ; <b>12 puits</b> d’accès et <b>12 cavernes</b> ; ouvrages entre <b>150 et 400 m</b> de profondeur.</div>
+    <div class="k">Géographie</div>
+    <div class="v"><b>8 sites de surface</b> (7 en France, 1 en Suisse) + injecteur sur le site CERN existant de Prévessin-Moëns. <b>4 sites scientifiques</b> (PA, PD, PG, PJ) ; <b>4 sites techniques</b> (PB, PF, PH, PL).</div>
+    <div class="k">Répartition des fonctions</div>
+    <div class="v">sites scientifiques = expériences et majeure partie du creusement souterrain ; sites techniques = fonctions de service, accélération et faisceau.</div>
+    <div class="k">Temporalité</div>
+    <div class="v">FCC-ee d’abord, soumis à une éventuelle décision ; FCC-hh beaucoup plus tard, non décidé. <span class="hl">Ne pas présenter les deux phases comme acquises.</span></div>
+  </div>
+
+  <h2 id="s3"><span class="num">3</span> CALENDRIER ET ÉTUDES : NE PAS CONFONDRE LES SÉQUENCES</h2>
+  <div class="timeline">
+    <div class="step">
+      <div><div class="when">2024–automne 2026</div><span class="tag t-geo">Géologie</span></div>
+      <div><b>SSi1</b> : première campagne de reconnaissance géologique. Choulex / Presinge non investigués directement à ce stade : approfondissement du site PB renvoyé après levée des principales incertitudes géologiques du tracé global.</div>
+    </div>
+    <div class="step">
+      <div><div class="when">Été 2026–2027</div><span class="tag t-env">Environnement</span></div>
+      <div><b>État initial environnemental</b> : compléments de terrain engagés depuis l’été 2026, après un premier état initial constitué à partir des études antérieures (dont 2024). Objectif : mieux documenter le contexte local et saisonnier.</div>
+    </div>
+    <div class="step">
+      <div><div class="when">SSi2 – prochaine étape</div><span class="tag t-geo">Géologie</span></div>
+      <div><b>Géologie locale</b> : campagne de forage approfondie envisagée sur la parcelle retenue à Presinge (PB). Échanges engagés / recherchés avec l’agriculteur exploitant pour coordonner le calendrier et les conditions d’intervention.</div>
+    </div>
+    <div class="step">
+      <div><div class="when">Mi-2027</div><span class="tag t-env">Environnement</span></div>
+      <div><b>Étude d’impact environnemental</b> : lancement prévu de la démarche réglementaire. Croisement de l’état initial (milieux, eau, biodiversité, usages) avec les caractéristiques techniques du projet pour identifier, éviter et réduire les impacts, puis définir les compensations nécessaires.</div>
+    </div>
+    <div class="step">
+      <div><div class="when">2027–mars 2028</div><span class="tag t-mat">Matériaux</span></div>
+      <div><b>MATEX</b> : plan préliminaire de gestion des matériaux excavés, exutoires, logistique, transports et valorisation.</div>
+    </div>
+    <div class="step key">
+      <div><div class="when">2028 au plus tôt</div><span class="tag t-dec">Décision</span></div>
+      <div><b>Décision du Conseil du CERN</b> sur la poursuite du FCC-ee ; <span class="hl">ne vaut ni autorisation de construire ni autorisation environnementale.</span> Si poursuite : procédures et études détaillées continuent.</div>
+    </div>
+  </div>
+
+  <div class="box vigil">
+    <div class="title"><span class="icon">!</span> Point de vigilance</div>
+    <div class="quad">
+      <div><b>SSi1</b>= reconnaissance géologique générale</div>
+      <div><b>SSi2</b>= investigations géologiques complémentaires ciblées</div>
+      <div><b>État initial environnemental</b>= description des milieux avant projet</div>
+      <div><b>Étude d’impact</b>= analyse des effets du projet sur cet état initial</div>
+    </div>
+    <div class="foot">Quatre démarches distinctes et complémentaires.</div>
+  </div>
+</section>
+
+<section class="part">
+  <div class="hero" id="p2">
+    <div class="kicker">Partie 2 · Réponses locales</div>
+    <h1>CHOULEX | RÉPONSES LOCALES ET POINTS À SÉCURISER</h1>
+  </div>
+  <div class="distinguish">
+    <span class="lbl">Distinguer :</span>
+    <span class="chip">territoire communal de Choulex</span><span class="sep">·</span>
+    <span class="chip">site PB situé à Presinge</span><span class="sep">·</span>
+    <span class="chip">effets régionaux du projet</span>
+  </div>
+
+  <h2 id="s4"><span class="num">4</span> SITE PB – PRESINGE : DONNÉES À AVOIR EN TÊTE</h2>
+  <div class="pb">
+    <div class="card"><div class="k">Fonction</div>site technique suisse ; puits de <b>12 m de diamètre</b> ; caverne de service et caverne pour deux absorbeurs de faisceau ; ventilation, refroidissement, cryogénie, électricité.</div>
+    <div class="card"><div class="k">Emprise</div>environ <b>4 ha</b> estimés en exploitation ; partie de la <b>parcelle 2113</b>, propriété de l’État de Genève. Site en bordure de la route de Jussy, contexte agricole, cours d’eau protégé et habitations proches.</div>
+    <div class="card"><div class="k">Accès</div>jonction à créer sur la route de Jussy ; position et conception détaillées non arrêtées. Pas de nouvelle route identifiée pour le fonctionnement du site.</div>
+    <div class="card alert"><div class="k">Choulex</div><b>aucun site de surface FCC identifié sur la commune.</b> Ne pas en déduire l’absence d’impacts indirects (trafic, accès, chantier, eau, milieux). Les parcelles de Choulex citées dans la QUE 2447 ne font pas l’objet de négociations de la part des équipes du CERN.</div>
+  </div>
+
+  <h2 id="s5"><span class="num">5</span> THÈMES DE RÉPONSE : GÉNÉRAL / LOCAL</h2>
+
+  <div class="theme A" id="tA">
+    <div class="th"><span class="L">A</span> Matériaux excavés, artificialisation et trafic</div>
+    <div class="rows">
+      <div class="k">Global</div>
+      <div class="v"><b>6,3 Mm³</b> en place, soit <b>14,7 Mt</b> ; environ <b>8,1 Mm³</b> après foisonnement ; excavation sur <b>5 à 8 ans</b> ; environ <b>95 % de molasse</b>.</div>
+      <div class="k">PB</div>
+      <div class="v"><b>148 000 m³</b> en place / <b>192 000 m³</b> foisonnés, soit environ <b>2 % du total</b>. <span class="hl">Volume du site PB, pas de Choulex.</span> Aucun tonnage propre à Choulex identifié à ce stade.</div>
+      <div class="k">Gestion</div>
+      <div class="v">stockage provisoire <b>2 à 3 semaines</b> sur sites de surface pour caractérisation ; puis réemploi, valorisation ou évacuation. Objectif de <b>70 % de valorisation</b> à confronter à la géologie, <b>non garanti</b>.</div>
+      <div class="k">À préciser</div>
+      <div class="v">exutoires ; répartition France / Suisse ; itinéraires et volumes de camions par site ; dépôts temporaires ; éventuels flux via Choulex. <b>MATEX attendu début 2028</b> ; inventaire exutoires actualisé courant 2027.</div>
+    </div>
+  </div>
+
+  <div class="theme B" id="tB">
+    <div class="th"><span class="L">B</span> Eau : Foron, Seymaz, nappes, Sionnet</div>
+    <div class="rows">
+      <div class="k">Approvisionnement en exploitation</div>
+      <div class="v">eau traitée du Léman via SIG ; <b>aucun prélèvement industriel dans les nappes</b>. Besoin moyen estimé <b>1,9 Mm³/an</b> (fourchette 1,6–3,0 Mm³/an selon mode d’exploitation). Faisabilité technique confirmée par les SIG en août 2023.</div>
+      <div class="k">Réponse de fond</div>
+      <div class="v"><b>pas de prélèvement du FCC dans le Foron, la Seymaz ou les nappes locales pour le refroidissement.</b> Source d’approvisionnement distincte du système hydrogéologique local évoqué par la commune.</div>
+      <div class="k nuance">Nuance indispensable</div>
+      <div class="v nuance">cela n’écarte pas les questions de chantier : venues d’eau en forage, drainage, interception d’écoulements, eaux de ruissellement, rejets et incidences indirectes sur zones humides.</div>
+      <div class="k">Chantier</div>
+      <div class="v">besoins d’eau encore à affiner, très dépendants des technologies retenues (tunnelier, béton, suppression des poussières) et de l’organisation des sites. Études techniques et échanges avec les SIG en cours.</div>
+      <div class="k">Mesures / calendrier</div>
+      <div class="v">circuits fermés, réseaux étanches sans connexion inter-nappes, bassins et traitement avant rejet ; <b>étude d’impact à partir de mi-2027</b> ; volumes et points de rejet à préciser en <b>2028–2029</b>.</div>
+    </div>
+  </div>
+</section>
+
+<section class="part">
+  <div class="theme C" id="tC">
+    <div class="th"><span class="L">C</span> Énergie et cohérence climatique</div>
+    <div class="rows">
+      <div class="k">Consommation FCC-ee</div>
+      <div class="v"><b>1,1–1,7 TWh électriques/an</b> ; moyenne estimée <b>1,3 TWh</b>. <span class="hl">Consommation importante, à reconnaître clairement.</span></div>
+      <div class="k">Bonne comparaison</div>
+      <div class="v">ne pas comparer directement 1,3 TWh électriques du FCC à la consommation énergétique totale du canton. Genève : environ <b>14 TWh/an</b> toutes énergies ; environ <b>3 TWh/an</b> d’électricité (ordres de grandeur évoqués par la commune / à sourcer et actualiser). Aéroport et autres grands acteurs font partie du profil énergétique et du développement du territoire.</div>
+      <div class="k">Contexte CERN</div>
+      <div class="v"><b>pas de cumul LHC + FCC-ee</b> : arrêt du LHC à l’entrée en exploitation du FCC-ee. Mettre en regard la consommation actuelle du CERN, notamment en période de fonctionnement du LHC, et la consommation future consolidée des autres installations.</div>
+      <div class="k">Approvisionnement</div>
+      <div class="v">réseau électrique français ; pas de raccordement dédié à une production locale genevoise. Mix bas-carbone actuel élevé, mais <b>mix futur à ne pas garantir aujourd’hui</b>.</div>
+      <div class="k">Flexibilité</div>
+      <div class="v">examiner / valoriser la capacité d’effacement ou de modulation de la charge du FCC en périodes de tension du système électrique. Modalités, puissance mobilisable, durée et conditions opérationnelles à confirmer avec les équipes énergie / réseau.</div>
+      <div class="k">Message territorial</div>
+      <div class="v">objectif de ne pas créer de concurrence avec les besoins énergétiques locaux ; si la commune identifie un risque concret de concurrence d’usage ou de capacité, demander des éléments précis pour instruire et lever le point avec les acteurs compétents.</div>
+    </div>
+  </div>
+
+  <div class="theme D" id="tD">
+    <div class="th"><span class="L">D</span> Biodiversité, paysage, nuisances, compensations</div>
+    <div class="rows">
+      <div class="k">État initial</div>
+      <div class="v">premiers relevés antérieurs, complétés depuis l’été 2026 ; analyse ensuite croisée avec la conception technique. Sionnet, zones humides, continuités écologiques, espèces et périodes sensibles.</div>
+      <div class="k">PB / paysage</div>
+      <div class="v">orientations paysagères préliminaires en <b>2027</b> ; insertion à travailler avec les autorités locales. <b>4 ha = estimation d’exploitation, pas emprise totale du chantier.</b></div>
+      <div class="k">Nuisances</div>
+      <div class="v">bruit, poussières, vibrations, éclairage et sécurité routière à caractériser par site et par phase ; ne pas attribuer automatiquement à PB les flux de creusement des sites scientifiques.</div>
+      <div class="k">Compensations</div>
+      <div class="v"><b>aucune mesure spécifique Choulex arrêtée</b> ; séquence éviter-réduire-compenser ; compensation financière et garanties contractuelles à préciser, sans engagement déjà acquis.</div>
+    </div>
+  </div>
+
+  <h2 id="s6"><span class="num">6</span> POINTS À CONFIRMER EN INTERNE / ANNONCES POSSIBLES</h2>
+  <div class="rows confirm">
+    <label class="k"><input type="checkbox"> SSI2</label>
+    <div class="v">date / durée des forages sur la parcelle PB ; protocole d’intervention ; état des échanges avec l’agriculteur ; information de la commune et des riverains.</div>
+    <label class="k"><input type="checkbox"> Mobilité</label>
+    <div class="v">étude de trafic dédiée aux accès PB et aux routes de Choulex ? Itinéraires, PL/VL, horaires, sécurité scolaire, calendrier et pilote ? <b>Aucun plan d’évitement du village arrêté.</b></div>
+    <label class="k"><input type="checkbox"> Eau</label>
+    <div class="v">besoins de chantier PB ; ressource et raccordement ; études hydrogéologiques locales ; suivi des cours d’eau / zones humides ; calendrier de restitution.</div>
+    <label class="k"><input type="checkbox"> Énergie</label>
+    <div class="v">analyse de non-concurrence à l’échelle cantonale ; données de consommation CERN actuelle et future ; faisabilité et paramètres d’effacement en période de tension.</div>
+    <label class="k"><input type="checkbox"> Compensations / paysage</label>
+    <div class="v">date de présentation des variantes PB ; interlocuteur communal ; méthode de chiffrage et statut des engagements.</div>
+  </div>
+
+  <div class="box warn" id="warn">
+    <div class="title"><span class="icon">!</span> À NE PAS SURPROMETTRE</div>
+    <ul>
+      <li>absence absolue d’impact hydrogéologique</li>
+      <li>absence de tout trafic sur Choulex</li>
+      <li>plan d’évitement déjà acquis</li>
+      <li>effacement électrique garanti sans étude</li>
+      <li>compensations déjà définies</li>
+      <li>calendrier définitif</li>
+    </ul>
+  </div>
+
+  <div class="sources">
+    <b>Sources de travail :</b> Cahier d’acteurs CH09 ; Dossier du maître d’ouvrage (notamment pp. 75–76, 94, 102) ; réponses publiées et fiches techniques de la concertation ; briefing communal. <b>Les éléments de calendrier SSi1 / SSi2 et les échanges avec l’exploitant sont à confirmer par l’équipe forages avant annonce.</b>
+  </div>
+</section>
+
+
+<footer class="foot-doc">FCC · Entretien Commune de Choulex · Document de travail</footer>
+</main>
+</body>
+</html>
